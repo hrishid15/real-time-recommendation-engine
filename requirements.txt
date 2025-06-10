@@ -1,0 +1,8 @@
+aiohttp==3.12.12
+redis==6.2.0
+numpy==2.3.0
+pandas==2.3.0
+scikit-learn==1.7.0
+aiofiles==24.1.0
+pytest==8.4.0
+pytest-asyncio==1.0.0
