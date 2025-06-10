@@ -1,1 +1,92 @@
-/venv
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data files (if you add any)
+data/
+*.csv
+*.json
+*.pkl
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# Cache files
+.cache/
+*.cache
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Redis dump files (if you ever add Redis)
+dump.rdb
+
+# Performance monitoring files
+*.prof
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Model files (if you save ML models)
+models/*.pkl
+models/*.joblib
+*.model
+
+# Configuration files with secrets
+config.ini
+secrets.json
+.env.local
