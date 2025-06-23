@@ -2,6 +2,7 @@ import asyncio
 import sys
 import signal
 from api.recommendation_server import RecommendationAPI
+from models.persistent_cached_hybrid_recommender import PersistentCachedHybridRecommender
 from shell.user_shell import RecommendationShell
 
 class RecommendationSystem:
@@ -35,18 +36,23 @@ class RecommendationSystem:
             {"item_id": "ipad", "category": "electronics", "brand": "apple", "description": "tablet computer touch"},
         ]
         
-        print("Starting Real-time Recommendation Engine...")
-        print("=" * 50)
+        print("Starting Real-time Recommendation Engine with Persistent Storage...")
+        print("=" * 60)
         
         self.api = RecommendationAPI(port=8000)
-        await self.api.initialize(interactions, items_data)
+        
+        # Replace the old recommender with the persistent one
+        self.api.recommender = PersistentCachedHybridRecommender()
+        await self.api.recommender.initialize(interactions, items_data)
+        
         await self.api.start()
         
         self.running = True
         
-        print("Server started successfully!")
-        print("Initializing user interface...")
-        print("=" * 50)
+        print("Server started successfully with persistent storage!")
+        print("Database: recommendation_engine.db")
+        print("API: http://localhost:8000")
+        print("=" * 60)
         
         await asyncio.sleep(1)
         
@@ -71,35 +77,29 @@ async def run_system():
         await system.stop_system()
 
 def show_menu():
-    print("Real-time Recommendation Engine")
-    print("=" * 40)
+    print("Real-time Recommendation Engine with Persistent Storage")
+    print("=" * 55)
+    print("NEW: Data now persists between sessions!")
+    print()
     print("Choose an option:")
     print("1. Start system (server + shell)")
     print("2. Help")
     print("3. Exit")
-    print("=" * 40)
+    print("=" * 55)
 
 async def show_help():
     print("\nHelp - Real-time Recommendation Engine")
     print("=" * 50)
-    print("WHAT THIS SYSTEM DOES:")
-    print("  - Provides personalized recommendations using ML")
-    print("  - Learns from user interactions in real-time")
-    print("  - Serves recommendations in <100ms")
-    print("  - Uses hybrid collaborative + content-based filtering")
-    print()
-    print("OPTION 1: Start System")
-    print("  - Starts the recommendation API server")
-    print("  - Opens interactive user shell")
-    print("  - Try logging in as alice, bob, or carol")
-    print("  - Rate items and see recommendations change instantly")
+    print("WHAT'S NEW:")
+    print("  - All user data and ratings are now saved permanently")
+    print("  - System remembers users between restarts")
+    print("  - Database file: recommendation_engine.db")
     print()
     print("FEATURES:")
-    print("  - Multi-user support with personalized recommendations")
-    print("  - Real-time learning from user ratings")
-    print("  - Item similarity and popularity features")
-    print("  - Performance monitoring and caching")
-    print("  - REST API for external integration")
+    print("  - Personalized recommendations using ML")
+    print("  - Real-time learning from user interactions")
+    print("  - Sub-100ms response times with caching")
+    print("  - Persistent storage with SQLite database")
     print()
     print("DEMO USERS:")
     print("  - alice: Likes Apple products and technology")
